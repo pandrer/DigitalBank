@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option csharp_namespace = "Customer.Grpc.Protos";
+
+
+service CustomerEntry {
+  rpc AddCustomer (CustomerRequest) returns (DefaultResponse);
+  rpc GetCustomers (Empty) returns (CustomerCollectionResponse);
+  rpc GetCustomer (CustomerByIdFilter) returns (CustomerResponse);
+}
+
+message Empty {
+}
+
+message DefaultResponse {
+  string message = 1;
+}
+
+message CustomerRequest {
+  string idNumber = 1;
+  string firsName = 2;
+  string middleName= 3;
+  string lastName=4;
+  string city=5;
+  string country=6;
+  string birthDate=7;
+  string email=8;
+  string address=9;
+  string phone=10;
+  string movil=11;
+}
+
+message CustomerByIdFilter {
+  string idNumber = 1;
+}
+
+message CustomerResponse {
+  string idNumber = 1;
+  string firsName = 2;
+  string middleName= 3;
+  string lastName=4;
+  string city=5;
+  string country=6;
+  string birthDate=7;
+  string email=8;
+  string address=9;
+  string phone=10;
+  string movil=11;
+  string message = 12;
+}
+
+message CustomerCollectionResponse {
+  repeated CustomerRequest customers = 1;
+  string message = 2;
+}

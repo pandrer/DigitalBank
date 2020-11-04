@@ -1,0 +1,41 @@
+version: "3.4"
+
+services:
+  mssqldoker:  
+    image: microsoft/mssql-server-linux:2017-latest  
+    hostname: 'sqlserver'  
+    environment:  
+      ACCEPT_EULA: Y  
+      SA_PASSWORD: "BigPassw0rd"  
+    volumes:  
+      - ./data/mssql:/var/opt/mssql3  
+    ports:  
+      - '1433:1433'  
+    expose:  
+      - 1433 
+
+  ath.grpc:
+    image: ${DOCKER_REGISTRY-digitalbank}/athgrpc
+    build:
+      context: .
+      dockerfile: src/Services/Ath/Ath.Grpc/Dockerfile
+
+  customer.grpc:
+    image: ${DOCKER_REGISTRY-digitalbank}/customergrpc
+    build:
+      context: .
+      dockerfile: src/Services/Customer/Customer.Grpc/Dockerfile
+    links:  
+      - mssqldoker
+
+  inperson.grpc:
+    image: ${DOCKER_REGISTRY-digitalbank}/inpersongrpc
+    build:
+      context: .
+      dockerfile: src/Services/InPerson/InPerson.Grpc/Dockerfile
+
+  card.grpc:
+    image: ${DOCKER_REGISTRY-digitalbank}/cardgrpc
+    build:
+      context: .
+      dockerfile: src/Services/Card/Card.Grpc/Dockerfile
