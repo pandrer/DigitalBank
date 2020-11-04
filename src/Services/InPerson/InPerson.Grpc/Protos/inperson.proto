@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+option csharp_namespace = "InPerson.Grpc.Protos";
+
+
+service InPersonEntry {
+  rpc AddProduct (ProductRequest) returns (DefaultResponse);
+  rpc GetProductsByPerson (ProductsByIdFilter) returns (ProductsCollectionResponse);
+  rpc GetProduct (ProductsByReferenceFilter) returns (ProductsCollectionResponse);
+}
+
+
+
+message ProductRequest {
+  string accountReference = 1;
+  string idClient = 2;
+  string accountType= 3;
+}
+
+message ProductsByIdFilter {
+  string idNumber = 1;
+}
+
+message ProductsByReferenceFilter {
+  string accountReference = 1;
+}
+
+
+message ProductModel {
+  string accountReference = 1;
+  string idClient = 2;
+  string accountType= 3;
+  string hasCard= 4;
+  string openingDate= 5;
+}
+
+message ProductsCollectionResponse {
+  repeated ProductModel products = 1;
+  string message = 2;
+}
+
+
+service CreditCardEntry {
+  rpc AddCreditCard (CreditCardRequest) returns (DefaultResponse);
+  rpc GetAvailableCreditCards (Empty) returns (CreditCardCollectionResponse);
+  rpc UpdateAvailabilityCreditCard (CreditCardByReferenceFilter) returns (DefaultResponse);
+}
+
+
+message CreditCardRequest {
+  string cardReference = 1;
+  string creditCardType = 2;
+}
+
+message CreditCardByReferenceFilter {
+  string cardReference = 1;
+}
+
+message CreditCardModel {
+  string cardReference = 1;
+  string creditCardType = 2;
+}
+
+message CreditCardCollectionResponse {
+  repeated CreditCardModel products = 1;
+  string message = 2;
+}
+
+
+
+message Empty {
+}
+
+message DefaultResponse {
+  string message = 1;
+}

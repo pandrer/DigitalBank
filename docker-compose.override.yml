@@ -7,8 +7,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "80"
-      - "443"
+      - "5101:80"
+      - "9101:443"
 
   customer.grpc:
     environment:
@@ -16,8 +16,8 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ConnectionString=${ESHOP_AZURE_CATALOG_DB:-Server=mssqldoker;Database=CustomersDb;User Id=sa;Password=PasswordO1.}
     ports:
-      - "80"
-      - "443"
+      - "5102:80"
+      - "9102:443"
 
 
   inperson.grpc:
@@ -25,14 +25,5 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "80"
-      - "443"
-
-
-  card.grpc:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "80"
-      - "443"
+      - "5103:80"
+      - "9103:443"
