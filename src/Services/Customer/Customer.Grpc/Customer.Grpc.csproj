@@ -30,4 +30,8 @@
     <Folder Include="Infrastructure\Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\CrossCuttingLayer\CrossCuttingLayer.csproj" />
+  </ItemGroup>
+
 </Project>

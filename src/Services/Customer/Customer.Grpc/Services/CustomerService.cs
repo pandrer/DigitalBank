@@ -1,6 +1,8 @@
-﻿using Customer.Grpc.Protos;
+﻿using CrossCuttingLayer.Helpers;
+using Customer.Grpc.Protos;
 using Customer.Grpc.Storage.Contracts;
 using Grpc.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -10,12 +12,16 @@ namespace Customer.Grpc.Services
     public class CustomerService : CustomerEntry.CustomerEntryBase
     {
         private readonly ILogger<CustomerService> _logger;
+        private readonly IConfiguration _config;
         private readonly ICostumerRepository _costumerRepository;
+        private readonly int _keyCaesarEncipher;
 
-        public CustomerService(ILogger<CustomerService> logger, ICostumerRepository costumerRepository)
+        public CustomerService(ILogger<CustomerService> logger, IConfiguration config, ICostumerRepository costumerRepository)
         {
             _logger = logger;
+            _config = config;
             _costumerRepository = costumerRepository;
+            _keyCaesarEncipher = config.GetValue<int>("CaesarEncipherKey");
         }
 
         public override async Task<DefaultResponse> AddCustomer(CustomerRequest request, ServerCallContext context)
@@ -38,6 +44,8 @@ namespace Customer.Grpc.Services
                     Movil = request.Movil,
                     Phone = request.Phone
                 };
+
+                costumer.CaesarEncipherObject(_keyCaesarEncipher);
                 await _costumerRepository.Add(costumer);
 
             }
@@ -56,6 +64,8 @@ namespace Customer.Grpc.Services
             try
             {
                 var costumer = await _costumerRepository.Get(request.IdNumber);
+                costumer.CaesarDecipherObject(_keyCaesarEncipher);
+
                 result.IdNumber = costumer.IdNumber;
                 result.Address = costumer.Address;
                 result.BirthDate = costumer.BirthDate.ToString();
@@ -68,6 +78,8 @@ namespace Customer.Grpc.Services
                 result.MiddleName = costumer.MiddleName;
                 result.Movil = costumer.Movil;
                 result.Phone = costumer.Phone;
+
+
             }
             catch (Exception ex)
             {
@@ -85,6 +97,8 @@ namespace Customer.Grpc.Services
                 var costumers = await _costumerRepository.GetAll();
                 foreach (var costumer in costumers)
                 {
+                    costumer.CaesarDecipherObject(_keyCaesarEncipher);
+
                     var current = new CustomerRequest();
                     current.IdNumber = costumer.IdNumber;
                     current.Address = costumer.Address;
@@ -98,6 +112,7 @@ namespace Customer.Grpc.Services
                     current.MiddleName = costumer.MiddleName;
                     current.Movil = costumer.Movil;
                     current.Phone = costumer.Phone;
+
                     result.Customers.Add(current);
                 }
 

@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InPerson.Grpc", "InPerson.G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPerson.Grpc", "src\Services\InPerson\InPerson.Grpc\InPerson.Grpc.csproj", "{1EC29D28-CF25-4CAA-9090-F7A767BC33DF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{B65B79A9-B45B-4433-8FD6-04A933DEC296}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCuttingLayer", "..\CrossCuttingLayer\CrossCuttingLayer.csproj", "{72890D71-0438-4291-A377-A522FE037C9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{1EC29D28-CF25-4CAA-9090-F7A767BC33DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EC29D28-CF25-4CAA-9090-F7A767BC33DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EC29D28-CF25-4CAA-9090-F7A767BC33DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72890D71-0438-4291-A377-A522FE037C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72890D71-0438-4291-A377-A522FE037C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72890D71-0438-4291-A377-A522FE037C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72890D71-0438-4291-A377-A522FE037C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,8 @@ Global
 		{4BF86756-712D-49BF-8D73-25BE7620B8AE} = {226B5033-06BE-46A2-A91B-CC9809FD58F4}
 		{FA3C4F0B-AE3A-4762-A7BF-CAACD5A8C634} = {4BF86756-712D-49BF-8D73-25BE7620B8AE}
 		{1EC29D28-CF25-4CAA-9090-F7A767BC33DF} = {FA3C4F0B-AE3A-4762-A7BF-CAACD5A8C634}
+		{B65B79A9-B45B-4433-8FD6-04A933DEC296} = {80956D33-CC44-4472-998E-D360B7413D16}
+		{72890D71-0438-4291-A377-A522FE037C9A} = {B65B79A9-B45B-4433-8FD6-04A933DEC296}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50513ACE-10F6-4A26-A540-45B200A0289C}
